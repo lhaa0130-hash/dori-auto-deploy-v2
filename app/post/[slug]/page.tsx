@@ -1,10 +1,10 @@
-import { getPostContent } from '@/lib/getPostContent';
+// 경로를 상대 경로로 변경하여 서버가 파일을 확실히 찾게 합니다.
+import { getPostContent } from '../../../lib/getPostContent'; 
 import { marked } from 'marked';
 import Link from 'next/link';
 
-// (generateStaticParams 함수가 제거됨)
-
 // 글 상세 페이지를 만드는 함수입니다.
+// generateStaticParams 함수는 제거되어야 합니다.
 export default function PostPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
