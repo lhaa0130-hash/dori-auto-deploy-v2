@@ -1,14 +1,8 @@
-import { getPostContent, getAllPostSlugs } from '@/lib/getPostContent';
+import { getPostContent } from '@/lib/getPostContent';
 import { marked } from 'marked';
 import Link from 'next/link';
 
-// Next.js에게 어떤 주소들이 있는지 미리 알려주는 설정입니다.
-export async function generateStaticParams() {
-  const slugs = getAllPostSlugs();
-  return slugs.map((slug) => ({
-    slug: slug.slug,
-  }));
-}
+// (generateStaticParams 함수가 제거됨)
 
 // 글 상세 페이지를 만드는 함수입니다.
 export default function PostPage({ params }: { params: { slug: string } }) {
