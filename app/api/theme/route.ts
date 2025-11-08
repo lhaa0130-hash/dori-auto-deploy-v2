@@ -2,7 +2,6 @@
 import 'server-only';
 // GitHub API를 사용하기 위한 라이브러리
 import { Octokit } from 'octokit';
-// ⭐️ 수정된 import 구문 (GoogleGenerativeAI -> GoogleGenAI)
 import { GoogleGenAI } from "@google/genai"; 
 import { Buffer } from 'buffer';
 import path from 'path';
@@ -18,8 +17,8 @@ const owner = "lhaa0130-hash"; // ⚠️ 여기에 사용자님의 GitHub ID를 
 const repo = "dori-auto-deploy";
 const branch = "main";
 
-// Gemini API 키 설정 (수정된 이름 사용)
-const ai = new GoogleGenAI(process.env.GEMINI_API_KEY as string);
+// ⭐️ Gemini API 키 설정 (최신 방식: 객체 안에 apiKey로 전달)
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 // Octokit 초기화
