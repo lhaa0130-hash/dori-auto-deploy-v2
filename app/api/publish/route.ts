@@ -8,13 +8,13 @@ import { Buffer } from 'buffer';
 // 1. 초기 설정 
 // ----------------------------------------------------
 const githubToken = process.env.GITHUB_TOKEN;
-const owner = "lhaa0130-hash"; // ⚠️ 여기에 사용자님의 GitHub ID를 직접 입력하세요!
-const repo = "dori-auto-deploy-v4"; // ⚠️ 변경된 리포지토리 이름으로 수정!
+const owner = "lhaa0130-hash"; // ⚠️ 여기에 사용자님의 GitHub ID를 입력하세요!
+const repo = "dori-auto-deploy-v4"; // ⭐️ 변경된 리포지토리 이름으로 수정!
 const branch = "main";
 
 // Gemini API 키 설정
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" }); // Day 6와 동일한 함수 사용
+const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" }); 
 
 const octokit = new Octokit({ auth: githubToken });
 
@@ -81,7 +81,7 @@ export async function POST(request: Request) {
         const { command } = await request.json(); 
 
         if (!command || typeof command !== 'string') {
-            return new Response(JSON.stringify({ success: false, error: '유효한 명령(command)이 필요합니다.' }), { status: 400 });
+            return new Response(JSON.stringify({ success: false, error: '유효한 명령(command)' }), { status: 400 });
         }
 
         // 1. Gemini에게 새 글 생성 요청
@@ -98,6 +98,11 @@ export async function POST(request: Request) {
 
     } catch (error) {
         console.error("API 처리 중 오류 발생:", error);
-        return new Response(JSON.stringify({ success: false, error: '서버 처리 오류가 발생했습니다.' }), { status: 500 });
+        // 500 에러 발생 시, 디버깅을 위해 에러 메시지를 응답에 포함
+        return new Response(JSON.stringify({ 
+            success: false, 
+            error: '서버 처리 오류가 발생했습니다. 로그를 확인하세요.', 
+            details: error instanceof Error ? error.message : '알 수 없는 오류' 
+        }), { status: 500 });
     }
 }
